@@ -64,7 +64,9 @@ type (
 	TablePanel struct {
 		Targets []Target `json:"targets,omitempty"`
 	}
-	TextPanel       struct{}
+	TextPanel       struct{
+		Targets []Target
+	}
 	SinglestatPanel struct {
 		Targets []Target `json:"targets,omitempty"`
 	}
@@ -89,7 +91,9 @@ type (
 	GaugePanel struct {
 		Targets []Target `json:"targets,omitempty"`
 	}
-	CustomPanel map[string]interface{}
+	CustomPanel struct {
+		Targets []Target
+	}
 )
 
 // for an any panel
@@ -118,6 +122,8 @@ func (p *Panel) GetTargets() *[]Target {
 		return &p.TimeseriesPanel.Targets
 	case GaugeType:
 		return &p.GaugePanel.Targets
+	case CustomType:
+		return &p.CustomPanel.Targets
 	default:
 		return nil
 	}
@@ -203,7 +209,7 @@ func (p *Panel) UnmarshalJSON(b []byte) (err error) {
 			p.GaugePanel = &gauge
 		}
 	default:
-		var custom = make(CustomPanel)
+		var custom CustomPanel
 		p.OfType = CustomType
 		if err = json.Unmarshal(b, &custom); err == nil {
 			p.CustomPanel = &custom
