@@ -128,6 +128,12 @@ func (p *Panel) GetTargets() *[]Target {
 		return &p.TimeseriesPanel.Targets
 	case GaugeType:
 		return &p.GaugePanel.Targets
+	case RowType:
+		return &p.RowPanel.Targets
+	case TextType:
+		return &p.TextPanel.Targets
+	case LogsType:
+		return &p.LogsPanel.Targets
 	case CustomType:
 		return &p.CustomPanel.Targets
 	default:
