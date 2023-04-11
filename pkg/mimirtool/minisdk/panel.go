@@ -67,7 +67,7 @@ type (
 		Targets []Target `json:"targets,omitempty"`
 	}
 	TextPanel struct {
-		Targets []Target
+		Targets []Target `json:"targets,omitempty"`
 	}
 	SinglestatPanel struct {
 		Targets []Target `json:"targets,omitempty"`
@@ -75,15 +75,21 @@ type (
 	StatPanel struct {
 		Targets []Target `json:"targets,omitempty"`
 	}
-	DashlistPanel   struct{}
-	PluginlistPanel struct{}
-	AlertlistPanel  struct{}
+	DashlistPanel   struct {
+		Targets []Target `json:"targets,omitempty"`
+	}
+	PluginlistPanel struct {
+		Targets []Target `json:"targets,omitempty"`
+	}
+	AlertlistPanel  struct {
+		Targets []Target `json:"targets,omitempty"`
+	}
 	BarGaugePanel   struct {
 		Targets []Target `json:"targets,omitempty"`
 	}
 	RowPanel struct {
 		Panels  []Panel `json:"panels"`
-		Targets []Target
+		Targets []Target `json:"targets,omitempty"`
 	}
 	HeatmapPanel struct {
 		Targets []Target `json:"targets,omitempty"`
@@ -95,10 +101,10 @@ type (
 		Targets []Target `json:"targets,omitempty"`
 	}
 	LogsPanel struct {
-		Targets []Target
+		Targets []Target `json:"targets,omitempty"`
 	}
 	CustomPanel struct {
-		Targets []Target
+		Targets []Target `json:"targets,omitempty"`
 	}
 )
 
@@ -134,6 +140,12 @@ func (p *Panel) GetTargets() *[]Target {
 		return &p.TextPanel.Targets
 	case LogsType:
 		return &p.LogsPanel.Targets
+	case DashlistType:
+		return &p.DashlistPanel.Targets
+	case PluginlistType:
+		return &p.PluginlistPanel.Targets
+	case AlertlistType:
+		return &p.AlertlistPanel.Targets
 	case CustomType:
 		return &p.CustomPanel.Targets
 	default:
